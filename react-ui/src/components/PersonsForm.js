@@ -22,7 +22,7 @@ const PersonsForm = ({
   setPersons,
   setNewName,
   setNewNumber,
-  setMessage
+  setMessage,
 }) => {
   const addName = (event) => {
     event.preventDefault();
@@ -44,14 +44,15 @@ const PersonsForm = ({
         personService
           .update(id, changedPerson)
           .then((response) => {
-            setPersons(persons.map((x) => (x.id !== +id ? x : response.data)));
+            console.log(response);
+            setPersons(persons.map((x) => (x.id !== +id ? x : changedPerson)));
             setNewName("");
             setNewNumber("");
           })
           .catch((error) => {
             const message = {
               text: `Information of ${changedPerson.name} has already been removed from server`,
-              type: "error"
+              type: "error",
             };
             setMessage(message);
             setTimeout(() => setMessage(null), 2000);
@@ -65,7 +66,7 @@ const PersonsForm = ({
 
     const newPerson = {
       name: name,
-      number: number
+      number: number,
     };
 
     personService.create(newPerson).then((response) => {
@@ -74,7 +75,7 @@ const PersonsForm = ({
       setNewNumber("");
       const message = {
         text: `Added ${response.data.name}`,
-        type: "success"
+        type: "success",
       };
       setMessage(message);
       setTimeout(() => setMessage(null), 2000);

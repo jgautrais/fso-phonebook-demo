@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "https://json-server-jgs.glitch.me/fso_phonebook_persons/";
+const baseURL = "/api/persons/";
 
 const getAll = () => {
   const request = axios.get(baseURL);
