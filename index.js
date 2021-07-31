@@ -20,23 +20,23 @@ app.use(
 let persons = [
   {
     id: 1,
-    name: "Arto Hellas",
-    number: "040-123456",
+    name: "Sam Gamgee",
+    number: "012-345-678",
   },
   {
     id: 2,
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
+    name: "Harry Potter",
+    number: "123-456-789",
   },
   {
     id: 3,
-    name: "Dan Abramov",
-    number: "12-43-234345",
+    name: "James Bond",
+    number: "12-34-56789",
   },
   {
     id: 4,
-    name: "Mary Poppendieck",
-    number: "39-23-6423122",
+    name: "Arsène Lupin",
+    number: "01-23-45-67-89",
   },
 ];
 
