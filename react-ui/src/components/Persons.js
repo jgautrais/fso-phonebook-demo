@@ -1,6 +1,6 @@
-import React from "react";
-import personService from "../services/persons";
-import styled from "styled-components";
+import React from 'react';
+import personService from '../services/persons';
+import styled from 'styled-components';
 
 const Button = styled.button`
   border-radius: 0.2rem;
@@ -55,10 +55,10 @@ const Persons = ({ persons, setPersons, filter }) => {
   const handleDelete = (event) => {
     event.preventDefault();
     let id = event.target.id;
-    let person = persons.filter((x) => x.id === +id)[0];
+    let person = persons.filter((x) => x.id === id)[0];
     if (window.confirm(`Delete ${person.name} ?`)) {
       personService.deletePerson(event.target.id).then((response) => {
-        setPersons(persons.filter((x) => x.id !== +id));
+        setPersons(persons.filter((x) => x.id !== id));
       });
     }
   };

@@ -1,6 +1,6 @@
-import React from "react";
-import personService from "../services/persons";
-import styled from "styled-components";
+import React from 'react';
+import personService from '../services/persons';
+import styled from 'styled-components';
 
 const Div = styled.div`
   text-align: center;
@@ -31,8 +31,8 @@ const InputField = styled.input`
 const Input = ({ data, handleChange, value }) => {
   return (
     <Div>
-      <p>{data}:</p>{" "}
-      <InputField placeholder=" " value={value} onChange={handleChange} />
+      <p>{data}:</p>{' '}
+      <InputField placeholder=' ' value={value} onChange={handleChange} />
     </Div>
   );
 };
@@ -61,7 +61,7 @@ const Button = ({ label }) => {
 
   return (
     <Div>
-      <Button type="submit">{label}</Button>
+      <Button type='submit'>{label}</Button>
     </Div>
   );
 };
@@ -81,7 +81,7 @@ const PersonsForm = ({
     event.preventDefault();
 
     if (name.length < 3) {
-      alert("Name should be at least 3 characters");
+      alert('Name should be at least 3 characters');
       return;
     } else if (
       persons.map((x) => x.name).includes(name) &&
@@ -101,20 +101,20 @@ const PersonsForm = ({
         personService
           .update(id, changedPerson)
           .then((response) => {
-            setPersons(persons.map((x) => (x.id !== +id ? x : response.data)));
-            setNewName("");
-            setNewNumber("");
+            setPersons(persons.map((x) => (x.id !== id ? x : changedPerson)));
+            setNewName('');
+            setNewNumber('');
             const message = {
-              text: `Updated ${response.data.name}'s number`,
-              type: "success",
+              text: `Updated ${changedPerson.name}'s number`,
+              type: 'success',
             };
             setMessage(message);
             setTimeout(() => setMessage(null), 3500);
           })
           .catch((error) => {
             const message = {
-              text: `Information of ${changedPerson.name} has already been removed from server`,
-              type: "error",
+              text: `${error.response.data.error}`,
+              type: 'error',
             };
             setMessage(message);
             setTimeout(() => setMessage(null), 3500);
@@ -131,24 +131,36 @@ const PersonsForm = ({
       number: number,
     };
 
-    personService.create(newPerson).then((response) => {
-      setPersons(persons.concat(response.data));
-      setNewName("");
-      setNewNumber("");
-      const message = {
-        text: `Added ${response.data.name}`,
-        type: "success",
-      };
-      setMessage(message);
-      setTimeout(() => setMessage(null), 3500);
-    });
+    personService
+      .create(newPerson)
+      .then((response) => {
+        setPersons(persons.concat(response.data));
+        setNewName('');
+        setNewNumber('');
+        const message = {
+          text: `Added ${response.data.name}`,
+          type: 'success',
+        };
+        setMessage(message);
+        setTimeout(() => setMessage(null), 3500);
+      })
+      .catch((error) => {
+        const message = {
+          text: `${error.response.data.error}`,
+          type: 'error',
+        };
+        setMessage(message);
+        setTimeout(() => setMessage(null), 2000);
+        personService.getAll().then((book) => setPersons(book));
+        console.log(error.response);
+      });
   };
 
   return (
     <form onSubmit={addName}>
-      <Input data="name" handleChange={handleNameChange} value={name} />
-      <Input data="number" handleChange={handleNumberChange} value={number} />
-      <Button label="add" />
+      <Input data='name' handleChange={handleNameChange} value={name} />
+      <Input data='number' handleChange={handleNumberChange} value={number} />
+      <Button label='add' />
     </form>
   );
 };
