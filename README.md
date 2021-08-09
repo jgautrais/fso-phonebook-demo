@@ -7,7 +7,7 @@ HTML5/JSX<br>
 CSS3/SASS, styled-components<br>
 React<br>
 Node.js with Express<br>
-Data on MongoDB database<br>
+Database: MongoDB<br>
 <br>
 
 Data is stored on MongoDB, Express server handles get, delete, post and put requests.
